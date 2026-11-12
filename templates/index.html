@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Movie Recommendation System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>🎬 Movie Recommendation System</h1>
+
+        <p class="subtitle">
+            Discover movies similar to your favourites!
+        </p>
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="movie"
+                list="movie-list"
+                placeholder="Enter your favourite movie..."
+            >
+
+            <datalist id="movie-list">
+                {% for movie in movies %}
+                    <option value="{{ movie }}">
+                {% endfor %}
+            </datalist>
+
+            <button onclick="getRecommendations()">
+                Recommend Movies
+            </button>
+
+        </div>
+
+        <h2 id="heading"></h2>
+
+        <div id="results" class="movie-grid"></div>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
