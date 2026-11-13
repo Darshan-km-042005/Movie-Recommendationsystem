@@ -1,26 +1,68 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Movie Recommendation System</title>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
 
-    <div class="container">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">🎬 CineMatch</div>
 
-        <h1>🎬 Movie Recommendation System</h1>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="#search-section">Discover Movies</a>
+        </div>
+    </nav>
 
-        <p class="subtitle">
-            Discover movies similar to your favourites!
-        </p>
+    <!-- Hero Section -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <span class="hero-label">✦ YOUR PERSONAL MOVIE GUIDE</span>
+
+            <h1>
+                Discover Movies<br>
+                <span>You'll Love.</span>
+            </h1>
+
+            <p>
+                Not sure what to watch next?
+                Find movies that match your taste using
+                the power of Machine Learning.
+            </p>
+
+            <a href="#search-section" class="hero-button">
+                Explore Movies <span>→</span>
+            </a>
+
+        </div>
+
+        <div class="hero-decoration">
+            <div class="circle circle-one"></div>
+            <div class="circle circle-two"></div>
+            <div class="floating-icon">🎥</div>
+            <div class="floating-text">Find your next favourite</div>
+        </div>
+
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section" id="search-section">
+
+        <div class="section-heading">
+            <span>DISCOVER YOUR NEXT WATCH</span>
+            <h2>What are you in the mood for?</h2>
+            <p>Enter a movie you love and we'll find similar movies for you.</p>
+        </div>
 
         <div class="search-box">
 
@@ -28,7 +70,8 @@
                 type="text"
                 id="movie"
                 list="movie-list"
-                placeholder="Enter your favourite movie..."
+                placeholder="🔍 Search a movie... e.g. The Avengers"
+                autocomplete="off"
             >
 
             <datalist id="movie-list">
@@ -38,16 +81,61 @@
             </datalist>
 
             <button onclick="getRecommendations()">
-                Recommend Movies
+                Find Movies →
             </button>
 
         </div>
 
+        <!-- Popular Searches -->
+        <div class="popular-section">
+
+            <span>POPULAR SEARCHES</span>
+
+            <div class="popular-movies">
+
+                <button onclick="selectMovie('The Dark Knight')">
+                    The Dark Knight
+                </button>
+
+                <button onclick="selectMovie('The Avengers')">
+                    The Avengers
+                </button>
+
+                <button onclick="selectMovie('Avatar')">
+                    Avatar
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Recommendation Results -->
+    <section class="recommendation-section">
+
         <h2 id="heading"></h2>
 
-        <div id="results" class="movie-grid"></div>
+        <div id="results"></div>
 
-    </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <h3>🎬 CineMatch</h3>
+
+        <p>
+            Powered by Machine Learning and the TMDB API.
+        </p>
+
+        <p class="copyright">
+            This product uses the TMDB API but is not endorsed or certified by TMDB.
+        </p>
+
+        <p class="copyright">
+            © 2026 CineMatch. All rights reserved.
+        </p>
+    </footer>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 

@@ -15,6 +15,14 @@ python -m pip install -r requirements.txt
 
 ## Run
 
+For movie posters, create a `.env` file in the project directory and add your TMDB read access token:
+
+```env
+TMDB_READ_ACCESS_TOKEN=your_tmdb_read_access_token
+```
+
+Posters are optional; the app works without a token.
+
 Start the app from the project directory:
 
 ```bash
