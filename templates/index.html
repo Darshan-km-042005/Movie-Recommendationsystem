@@ -1,55 +1,112 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Movie Recommendation System</title>
-
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101014">
+    <meta name="description" content="Discover your next favorite movie with recommendations powered by machine learning.">
+    <title>ReelGood — Movie Discovery</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-
 <body>
+    <div class="page-shell">
+        <header class="topbar">
+            <a class="brand" href="/" aria-label="ReelGood home">
+                <span class="brand-mark" aria-hidden="true">▶</span>
+                <span>reel<span class="brand-accent">good</span></span>
+            </a>
+            <span class="model-badge"><span class="status-dot"></span> AI-POWERED DISCOVERY</span>
+        </header>
 
-    <div class="container">
+        <main>
+            <section class="hero" aria-labelledby="hero-title">
+                <div class="hero-copy">
+                    <p class="eyebrow"><span class="eyebrow-line"></span> YOUR PERSONAL MOVIE GUIDE</p>
+                    <h1 id="hero-title">One great movie<br>leads to <span>another.</span></h1>
+                    <p class="hero-description">
+                        Tell us what you love. Our recommendation engine finds your next
+                        can’t-miss watch from a library of {{ "{:,}".format(movie_count) }} films.
+                    </p>
 
-        <h1>🎬 Movie Recommendation System</h1>
+                    <form id="search-form" class="search-panel">
+                        <label for="movie" class="search-label">START WITH A MOVIE YOU LOVE</label>
+                        <div class="search-row">
+                            <div class="input-wrap">
+                                <span class="search-icon" aria-hidden="true">⌕</span>
+                                <input
+                                    type="text"
+                                    id="movie"
+                                    name="movie"
+                                    list="movie-list"
+                                    placeholder="Try “Interstellar”"
+                                    autocomplete="off"
+                                    aria-describedby="search-help"
+                                    required
+                                >
+                                <datalist id="movie-list">
+                                    {% for movie in movies %}
+                                    <option value="{{ movie }}">
+                                    {% endfor %}
+                                </datalist>
+                            </div>
+                            <button id="submit-button" type="submit">
+                                <span>Find movies</span><span aria-hidden="true">↗</span>
+                            </button>
+                        </div>
+                        <p id="search-help" class="search-help">Pick a suggestion or enter an exact movie title.</p>
+                    </form>
 
-        <p class="subtitle">
-            Discover movies similar to your favourites!
-        </p>
+                    <div class="quick-picks">
+                        <span class="quick-picks-label">NOT SURE? TRY</span>
+                        <div class="pick-list">
+                            <button class="pick" type="button" data-title="Inception">Inception</button>
+                            <button class="pick" type="button" data-title="The Dark Knight">The Dark Knight</button>
+                            <button class="pick" type="button" data-title="Avatar">Avatar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-art" aria-hidden="true">
+                    <div class="orbit orbit-one"></div>
+                    <div class="orbit orbit-two"></div>
+                    <div class="poster-stack">
+                        <div class="poster poster-back"><span>THE<br>STORY<br>CONTINUES</span></div>
+                        <div class="poster poster-front">
+                            <span class="poster-kicker">TONIGHT’S FEATURE</span>
+                            <span class="poster-title">YOUR<br>NEXT<br><em>FAVORITE</em></span>
+                            <span class="poster-play">▶</span>
+                        </div>
+                        <span class="spark spark-one">✳</span>
+                        <span class="spark spark-two">✦</span>
+                    </div>
+                    <div class="art-caption"><span class="caption-dot"></span> A better watchlist starts here</div>
+                </div>
+            </section>
 
-        <div class="search-box">
+            <section class="results-section" aria-labelledby="heading">
+                <div class="results-heading">
+                    <div>
+                        <p class="eyebrow results-eyebrow"><span class="eyebrow-line"></span> HANDPICKED FOR YOU</p>
+                        <h2 id="heading">Your next favorites</h2>
+                    </div>
+                    <p id="result-count" class="result-count"></p>
+                </div>
+                <p id="status" class="status-message" role="status" aria-live="polite">
+                    Choose a movie above and we’ll find ten films with a similar feel.
+                </p>
+                <div id="results" class="movie-grid"></div>
+            </section>
+        </main>
 
-            <input
-                type="text"
-                id="movie"
-                list="movie-list"
-                placeholder="Enter your favourite movie..."
-            >
-
-            <datalist id="movie-list">
-                {% for movie in movies %}
-                    <option value="{{ movie }}">
-                {% endfor %}
-            </datalist>
-
-            <button onclick="getRecommendations()">
-                Recommend Movies
-            </button>
-
-        </div>
-
-        <h2 id="heading"></h2>
-
-        <div id="results" class="movie-grid"></div>
-
+        <footer class="footer">
+            <span>Made for movie nights.</span>
+            <span>
+                Recommendations powered by TF-IDF &amp; cosine similarity
+                <span class="footer-separator">·</span>
+                <a href="https://www.themoviedb.org/" target="_blank" rel="noopener noreferrer">TMDB</a>
+                provides movie poster artwork. This product uses the TMDB API but is not endorsed or certified by TMDB.
+            </span>
+        </footer>
     </div>
-
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
 </body>
 </html>
